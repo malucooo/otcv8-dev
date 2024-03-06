@@ -101,34 +101,36 @@ end
 
 function setSkillValue(id, value)
   local skill = skillsWindow:recursiveGetChildById(id)
-  local widget = skill:getChildById('value')
-  widget:setText(value)
+  if skill then
+    local widget = skill:getChildById('value')
+    widget:setText(value)
+end
 end
 
 function setSkillColor(id, value)
   local skill = skillsWindow:recursiveGetChildById(id)
-  local widget = skill:getChildById('value')
-  widget:setColor(value)
+  if skill then
+    local widget = skill:getChildById('value')
+    widget:setColor(value)
+end
 end
 
 function setSkillTooltip(id, value)
   local skill = skillsWindow:recursiveGetChildById(id)
-  local widget = skill:getChildById('value')
-  widget:setTooltip(value)
+  if skill then
+    local widget = skill:getChildById('value')
+    widget:setTooltip(value)
+end
 end
 
 function setSkillPercent(id, percent, tooltip, color)
   local skill = skillsWindow:recursiveGetChildById(id)
-  local widget = skill:getChildById('percent')
-  if widget then
-    widget:setPercent(math.floor(percent))
-
-    if tooltip then
-      widget:setTooltip(tooltip)
-    end
-
-    if color then
-    	widget:setBackgroundColor(color)
+  if skill then
+    local widget = skill:getChildById('percent')
+    if widget then
+        widget:setPercent(math.floor(percent))
+        if tooltip then widget:setTooltip(tooltip) end
+        if color then widget:setBackgroundColor(color) end
     end
   end
 end

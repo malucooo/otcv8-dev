@@ -50,7 +50,7 @@ namespace Proto {
         GameServerLoginAdvice = 0x15,
         GameServerLoginWait = 0x16,
         GameServerLoginSuccess = 0x17,
-        GameServerLoginToken = 0x18,
+        GameServerSessionEnd = 0x18,
         GameServerStoreButtonIndicators = 0x19, // 1097
         GameServerPingBack = 0x1D,
         GameServerPing = 0x1E,
@@ -95,7 +95,7 @@ namespace Proto {
         GameServerGraphicalEffect = 0x83,
         GameServerTextEffect = 0x84,
         GameServerMissleEffect = 0x85,
-        GameServerMarkCreature = 0x86,
+        GameServerItemClasses = 0x86,
         GameServerTrappers = 0x87,
         GameServerCreatureHealth = 0x8C,
         GameServerCreatureLight = 0x8D,

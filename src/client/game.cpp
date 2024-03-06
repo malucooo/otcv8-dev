@@ -164,9 +164,9 @@ void Game::processLoginWait(const std::string& message, int time)
     g_lua.callGlobalField("g_game", "onLoginWait", message, time);
 }
 
-void Game::processLoginToken(bool unknown)
+void Game::processSessionEnd(int reason)
 {
-    g_lua.callGlobalField("g_game", "onLoginToken", unknown);
+    g_lua.callGlobalField("g_game", "onSessionEnd", reason);
 }
 
 void Game::processLogin()

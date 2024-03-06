@@ -164,6 +164,9 @@ namespace Otc
         LifeLeechAmount,
         ManaLeechChance,
         ManaLeechAmount,
+        Fatal,
+        Dodge,
+        Momentum,
         LastSkill
     };
 
