@@ -134,11 +134,17 @@ MarketItemDescription = {
   Charges = 13,
   WeaponName = 14,
   Weight = 15,
-  Imbuements = 16
+  Imbuements = 16,
+  MagicShield = 17,
+  Cleave = 18,
+  Reflection = 19,
+  Perfect = 20,
+  UpgradeClassification = 21,
+  CurrentTier = 22
 }
 
 MarketItemDescription.First = MarketItemDescription.Armor
-MarketItemDescription.Last = MarketItemDescription.Weight
+MarketItemDescription.Last = MarketItemDescription.CurrentTier
 
 MarketItemDescriptionStrings = {
   [1] = 'Armor',
@@ -156,7 +162,13 @@ MarketItemDescriptionStrings = {
   [13] = 'Charges',
   [14] = 'Weapon Type',
   [15] = 'Weight',
-  [16] = 'Imbuements'
+  [16] = 'Imbuements',
+  [17] = 'Magic Shield',
+  [18] = 'Cleave',
+  [19] = 'Reflection',
+  [20] = 'Perfect Show',
+  [21] = 'Upgrade Classification',
+  [22] = 'Tier'
 }
 
 function getMarketDescriptionName(id)

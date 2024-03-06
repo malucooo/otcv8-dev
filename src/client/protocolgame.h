@@ -287,7 +287,9 @@ private:
     void parseItemsPrices(const InputMessagePtr& msg);
     void parseLootTracker(const InputMessagePtr& msg);
     void parseItemDetail(const InputMessagePtr& msg);
-    void parseHunting(const InputMessagePtr& msg);
+    void parseTaskHuntingBasicData(const InputMessagePtr& msg);
+    void parseTaskHuntingData(const InputMessagePtr& msg);
+    void parseExperienceTracker(const InputMessagePtr& msg);
     void parseExtendedOpcode(const InputMessagePtr& msg);
     void parseChangeMapAwareRange(const InputMessagePtr& msg);
     void parseProgressBar(const InputMessagePtr& msg);

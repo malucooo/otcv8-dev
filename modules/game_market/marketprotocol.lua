@@ -18,14 +18,24 @@ local function readMarketOffer(msg, action, var)
 
   local itemId = 0
   if var == MarketRequest.MyOffers or var == MarketRequest.MyHistory then
-    itemId = msg:getU16()
-  else
+    if g_game.getClientVersion() >= 1281 then
+      local item = Item.create(itemId) -- item id
+      if item and item:getUpgradeClassification() > 0 then
+          msg:getU8()
+      end
+  end
+else
     itemId = var
   end
 
   local amount = msg:getU16()
-  local price = msg:getU32()
-  local playerName
+  local price = 0
+  if g_game.getClientVersion() >= 1281 then
+      price = msg:getU64()
+  else
+      price = msg:getU32()
+  end
+local playerName
   local state = MarketOfferState.Active
   if var == MarketRequest.MyHistory then
     state = msg:getU8()
@@ -73,8 +83,14 @@ local function parseMarketEnter(protocol, msg)
   local depotItems = {}
   local depotCount = msg:getU16()
   for i = 1, depotCount do
-    local itemId = msg:getU16() -- item id
-    local itemCount = msg:getU16() -- item count
+    local itemId = msg:getU16();
+    if g_game.getClientVersion() >= 1281 then
+        local item = Item.create(itemId)
+        if item and item:getUpgradeClassification() > 0 then
+            msg:getU8()
+        end
+    end
+local itemCount = msg:getU16() -- item count
 
     depotItems[itemId] = itemCount
   end
@@ -92,8 +108,14 @@ local function parseMarketDetail(protocol, msg)
   local itemId = msg:getU16()
 
   local descriptions = {}
-  for i = MarketItemDescription.First, MarketItemDescription.Last do
-    if msg:peekU16() ~= 0x00 then
+  local itemId = msg:getU16();
+  if g_game.getClientVersion() >= 1281 then
+      local item = Item.create(itemId) -- item id
+      if item and item:getUpgradeClassification() > 0 then
+          msg:getU8()
+      end
+  end
+  if msg:peekU16() ~= 0x00 then
       table.insert(descriptions, {i, msg:getString()}) -- item descriptions
     else
       msg:getU16()
@@ -114,9 +136,18 @@ local function parseMarketDetail(protocol, msg)
   local count = msg:getU8()
   for i=1, count do
     local transactions = msg:getU32() -- transaction count
-    local totalPrice = msg:getU32() -- total price
-    local highestPrice = msg:getU32() -- highest price
-    local lowestPrice = msg:getU32() -- lowest price
+    local totalPrice = 0
+    local highestPrice = 0
+    local lowestPrice = 0
+    if g_game.getClientVersion() >= 1281 then
+        totalPrice = msg:getU64() -- total price
+        highestPrice = msg:getU64() -- highest price
+        lowestPrice = msg:getU64() -- lowest price
+    else
+        totalPrice = msg:getU32() -- total price
+        highestPrice = msg:getU32() -- highest price
+        lowestPrice = msg:getU32() -- lowest price
+    end
 
     local tmp = time - statistics.SECONDS_PER_DAY
     table.insert(purchaseStats, OfferStatistic.new(tmp, MarketAction.Buy, transactions, totalPrice, highestPrice, lowestPrice))
@@ -126,9 +157,18 @@ local function parseMarketDetail(protocol, msg)
   count = msg:getU8()
   for i=1, count do
     local transactions = msg:getU32() -- transaction count
-    local totalPrice = msg:getU32() -- total price
-    local highestPrice = msg:getU32() -- highest price
-    local lowestPrice = msg:getU32() -- lowest price
+    local totalPrice = 0
+    local highestPrice = 0
+    local lowestPrice = 0
+    if g_game.getClientVersion() >= 1281 then
+        totalPrice = msg:getU64() -- total price
+        highestPrice = msg:getU64() -- highest price
+        lowestPrice = msg:getU64() -- lowest price
+    else
+        totalPrice = msg:getU32() -- total price
+        highestPrice = msg:getU32() -- highest price
+        lowestPrice = msg:getU32() -- lowest price
+    end
 
     local tmp = time - statistics.SECONDS_PER_DAY
     table.insert(saleStats, OfferStatistic.new(tmp, MarketAction.Sell, transactions, totalPrice, highestPrice, lowestPrice))
@@ -139,8 +179,21 @@ local function parseMarketDetail(protocol, msg)
 end
 
 local function parseMarketBrowse(protocol, msg)
-  local var = msg:getU16()
-  local offers = {}
+  local var = 0
+  if g_game.getClientVersion() >= 1281 then
+      var = msg:getU8()
+      if var == 3 then --- Item browse
+          var = msg:getU16()
+          local item = Item.create(var) -- item id
+          if item and item:getUpgradeClassification() > 0 then
+              msg:getU8()
+          end
+      end
+  else
+      var = msg:getU16()
+  end
+
+local offers = {}
 
   local buyOfferCount = msg:getU32()
   for i = 1, buyOfferCount do

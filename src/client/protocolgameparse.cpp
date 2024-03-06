@@ -269,8 +269,11 @@ void ProtocolGame::parseMessage(const InputMessagePtr& msg)
                 parseRuleViolationChannel(msg);
                 break;
             case Proto::GameServerRuleViolationRemove:
-                parseRuleViolationRemove(msg);
-                break;
+                    if(g_game.getClientVersion() >= 1200)
+                        parseExperienceTracker(msg);
+                    else        
+                        parseRuleViolationRemove(msg);
+            break;
             case Proto::GameServerRuleViolationCancel:
                 parseRuleViolationCancel(msg);
                 break;
@@ -514,6 +517,12 @@ void ProtocolGame::parseMessage(const InputMessagePtr& msg)
             case Proto::GameServerItemDetail:
                 parseItemDetail(msg);
                 break;
+                case Proto::GameServerTaskHuntingBasicData:
+                    parseTaskHuntingBasicData(msg);
+                    break;
+                case Proto::GameServerTaskHuntingData:
+                    parseTaskHuntingData(msg);
+                    break;
             case Proto::GameServerHunting:
                 parseHunting(msg);
                 break;
@@ -1555,21 +1564,21 @@ void ProtocolGame::parseDistanceMissile(const InputMessagePtr& msg)
 
 void ProtocolGame::parseItemClasses(const InputMessagePtr& msg)
 {
-    int classSize = msg->getU8();
+    uint8_t classSize = msg->getU8();
     int tiersSize = 0;
     for(uint8_t i = 0; i < classSize; i++) {
         msg->getU8(); // class id
 
         // tiers
-        tiersSize = msg->getU8();
+        uint8_t tiersSize = msg->getU8();
         for(uint8_t j = 0; j < tiersSize; j++) {
             msg->getU8(); // tier id
             msg->getU64(); // upgrade cost
         }
     }
 
-    for(uint8_t i = 0; i < tiersSize + 1; i++) {
-        msg->getU8(); // ??
+    for(uint8_t i = 1; i <= 11; i++) {
+        msg->getU8(); // Forge values
     }
 }
 
@@ -3085,6 +3094,78 @@ void ProtocolGame::parseHunting(const InputMessagePtr& msg)
 
 }
 
+void ProtocolGame::parseTaskHuntingBasicData(const InputMessagePtr& msg)
+{
+    uint16_t preys = msg->getU16();
+    for (uint16_t i = 0; i < preys; i++) {
+        msg->getU16(); // RaceID
+        msg->getU8(); // Difficult
+    }
+
+    uint8_t options = msg->getU8();
+    for (uint8_t j = 0; j < options; j++) {
+        msg->getU8(); // Difficult
+        msg->getU8(); // Stars
+        msg->getU16(); // First kill
+        msg->getU16(); // First reward
+        msg->getU16(); // Second kill
+        msg->getU16(); // Second reward
+    }
+}
+void ProtocolGame::parseTaskHuntingData(const InputMessagePtr& msg)
+{
+    msg->getU8(); // slot
+    auto state = static_cast<Otc::PreyTaskstate_t>(msg->getU8()); // slot state
+
+    switch(state) {
+        case Otc::PREY_TASK_STATE_LOCKED: {
+            msg->getU8(); // task slot unlocked
+            break;
+        }
+        case Otc::PREY_TASK_STATE_INACTIVE:
+            break;
+        case Otc::PREY_TASK_STATE_SELECTION: {
+            uint16_t creatures = msg->getU16();
+            for (uint16_t i = 0; i < creatures; i++) {
+                msg->getU16(); // RaceID
+                msg->getU8(); // Is unlocked
+            }
+            break;
+        }
+        case Otc::PREY_TASK_STATE_LIST_SELECTION: {
+            uint16_t creatures = msg->getU16();
+            for (uint16_t i = 0; i < creatures; i++) {
+                msg->getU16(); // RaceID
+                msg->getU8(); // Is unlocked
+            }
+            break;
+        }
+        case Otc::PREY_TASK_STATE_ACTIVE: {
+            msg->getU16(); // RaceID
+            msg->getU8(); // Upgraded
+            msg->getU16(); // Required kills
+            msg->getU16(); // Current kills
+            msg->getU8(); // Stars
+            break;
+        }
+        case Otc::PREY_TASK_STATE_COMPLETED: {
+            msg->getU16(); // RaceID
+            msg->getU8(); // Upgraded
+            msg->getU16(); // Required kills
+            msg->getU16(); // Current kills
+            break;
+        }
+    }
+
+    msg->getU32(); // next free roll
+}
+
+void ProtocolGame::parseExperienceTracker(const InputMessagePtr& msg)
+{
+    msg->get64(); // Raw exp
+    msg->get64(); // Final exp
+}
+
 void ProtocolGame::parseExtendedOpcode(const InputMessagePtr& msg)
 {
     int opcode = msg->getU8();
@@ -3484,7 +3565,12 @@ CreaturePtr ProtocolGame::getCreature(const InputMessagePtr& msg, int type)
 
         int speed = msg->getU16();
         if (g_game.getFeature(Otc::GameTibia12Protocol) && g_game.getProtocolVersion() >= 1240)
-            msg->getU8();
+            uint8_t iconDebuff = msg->getU8(); // creature debuffs
+            if (iconDebuff != 0) {
+                msg->getU8(); // Icon
+                msg->getU8(); // Update (?)
+                msg->getU16(); // Counter text
+            }
         int skull = msg->getU8();
         int shield = msg->getU8();
 

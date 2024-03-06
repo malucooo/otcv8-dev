@@ -350,7 +350,13 @@ namespace Otc
         MessageRVRContinue             = 49,
         MessageGameHighlight           = 50,
         MessageNpcFromStartBlock       = 51,
-        LastMessage                    = 52,
+        // 12x
+        MessageAttention               = 52,
+        MessageBoostedCreature         = 53,
+        MessageOfflineTrainning        = 54,
+        MessageTransaction             = 55,
+        MessagePotion                  = 56,
+        LastMessage                    = 57,
         MessageInvalid                 = 255
     };
 
