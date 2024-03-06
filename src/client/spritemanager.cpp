@@ -21,6 +21,7 @@
  */
 
 #include "spritemanager.h"
+#include "spriteappearances.h"
 #include "game.h"
 #include <framework/core/resourcemanager.h>
 #include <framework/core/filestream.h>
@@ -304,6 +305,10 @@ void SpriteManager::unload()
 
 ImagePtr SpriteManager::getSpriteImage(int id)
 {
+    if(g_game.getClientVersion() >= 1281) {
+        return g_spriteAppearances.getSpriteImage(id);
+    }
+
     if (m_isHdMod) {
         return getSpriteImageHd(id);
     }

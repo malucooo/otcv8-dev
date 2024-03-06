@@ -3598,59 +3598,56 @@ ItemPtr ProtocolGame::getItem(const InputMessagePtr& msg, int id, bool hasDescri
 
     if (item->isStackable() || item->isChargeable()) {
         item->setCountOrSubType(g_game.getFeature(Otc::GameCountU16) ? msg->getU16() : msg->getU8());
-    }
-    else if (item->isFluidContainer() || item->isSplash()) {
+    } else if (item->isFluidContainer() || item->isSplash()) {
         item->setCountOrSubType(msg->getU8());
-    }
-    else if (item->rawGetThingType()->isContainer() && (g_game.getFeature(Otc::GameTibia12Protocol) || g_game.getFeature(Otc::GameQuickLootFlags))) {
-        // not sure about this part
+    } else if (item->rawGetThingType()->isContainer() && (g_game.getFeature(Otc::GameTibia12Protocol) || g_game.getFeature(Otc::GameQuickLootFlags))) {
+
         uint8_t hasQuickLootFlags = msg->getU8();
         if (hasQuickLootFlags > 0) {
             item->setQuickLootFlags(msg->getU32()); // quick loot flags
         }
+   
+        uint8_t hasQuiverAmmoCount = msg->getU8();
+        if(hasQuiverAmmoCount){
+            msg->getU32(); // ammoTotal*/
+        }
+        } else if (item->getClassification() != 0) {
+            msg->getU8(); // Item tier
     }
     
-        uint8 hasQuiverAmmoCount = msg->getU8();
-        if(hasQuiverAmmoCount)
-            msg->getU32(); // ammoTotal*/
-            msg->getU32(); // ammoTotal
-        }
- 
-        if (item->getClassification() != 0) {
-            msg->getU8(); // Item tier
-        }
 
-        if (item->hasClockExpire() || item->hasExpire() || item->hasExpireStop()) {
+    if (item->hasClockExpire() || item->hasExpire() || item->hasExpireStop()) {
             msg->getU32(); // Item duration (UI)
             msg->getU8(); // Is brand-new
-        }
+    }
 
-        if (item->hasWearOut()) {
+    if (item->hasWearOut()) {
             msg->getU32(); // Item charge (UI)
             msg->getU8(); // Is brand-new
-        }
+    }
 
         // Impl Podium
         // Todo: Temporary correction, the client dat does not contain information saying if the item is podium
-        if(id == 35973 || id == 35974) {
-            const uint16 lookType = msg->getU16();
-            if(lookType != 0) {
+    if(id == 35973 || id == 35974) {
+        const uint16 lookType = msg->getU16();
+        if(lookType != 0) {
             msg->getU8(); // lookHead
             msg->getU8(); // lookBody
             msg->getU8(); // lookLegs
             msg->getU8(); // lookFeet
             msg->getU8(); // lookAddons
-            }
-            const uint16 lookMount = msg->getU16();
-            if(lookMount != 0) {
+        }
+        const uint16 lookMount = msg->getU16();
+        if(lookMount != 0) {
             msg->getU8(); // lookHead
             msg->getU8(); // lookBody
             msg->getU8(); // lookLegs
             msg->getU8(); // lookFeet
-            }
-            msg->getU8(); // lookDirection
-            msg->getU8(); // podiumVisible
         }
+        msg->getU8(); // lookDirection
+        msg->getU8(); // podiumVisible
+        
+    }
 
     if (g_game.getFeature(Otc::GameItemAnimationPhase)) {
         if (item->getAnimationPhases() > 1) {
@@ -3674,7 +3671,7 @@ ItemPtr ProtocolGame::getItem(const InputMessagePtr& msg, int id, bool hasDescri
             item->setCustomAttribute(key, value);
         }
     }
-
+ 
     return item;
 }
 

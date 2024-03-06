@@ -28,6 +28,7 @@
 #include "game.h"
 #include "map.h"
 #include "spritemanager.h"
+#include "spriteappearances.h"
 #include "minimap.h"
 #include "healthbars.h"
 #include <framework/core/configmanager.h>
@@ -43,6 +44,8 @@ void Client::init(std::vector<std::string>& args)
     g_minimap.init();
     g_game.init();
     g_shaders.init();
+    g_sprites.init();
+    g_spriteAppearances.init();
     g_things.init();
     g_healthBars.init();
 }
@@ -55,6 +58,7 @@ void Client::terminate()
     g_minimap.terminate();
     g_things.terminate();
     g_sprites.terminate();
+    g_spriteAppearances.terminate();
     g_shaders.terminate();
     g_healthBars.terminate();
 }

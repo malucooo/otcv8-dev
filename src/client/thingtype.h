@@ -34,6 +34,9 @@
 #include <framework/luaengine/luaobject.h>
 #include <framework/net/server.h>
 
+using namespace tibia::protobuf;
+using namespace tibia::protobuf::shared;
+
 enum NewDrawType : uint8 {
     NewDrawNormal = 0,
     NewDrawMount = 5,
@@ -45,7 +48,8 @@ enum NewDrawType : uint8 {
 enum FrameGroupType : uint8 {
     FrameGroupDefault = 0,
     FrameGroupIdle = FrameGroupDefault,
-    FrameGroupMoving
+    FrameGroupMoving,
+    FrameGroupInitial
 };
 
 enum ThingCategory : uint8 {
@@ -159,9 +163,10 @@ struct Imbuement {
 };
 
 struct Light {
-    Point pos;
-    uint8_t color = 215;
-    uint8_t intensity = 0;
+    Light() {}
+    Light(uint8_t intensity, uint8_t color) : intensity(intensity), color(color) {}
+    uint8 intensity = 0;
+    uint8 color = 215;
 };
 
 struct DrawOutfitParams {
@@ -177,6 +182,7 @@ class ThingType : public LuaObject
 public:
     ThingType();
 
+    void unserializeAppearance(uint16 clientId, ThingCategory category, const appearances::Appearance& appearance);
     void unserialize(uint16 clientId, ThingCategory category, const FileStreamPtr& fin);
     void unserializeOtml(const OTMLNodePtr& node);
     void unload();
@@ -283,7 +289,7 @@ public:
     void setPathable(bool var);
 
 private:
-    const TexturePtr& getTexture(int animationPhase);
+    TexturePtr getTexture(int animationPhase, TextureType txtType = TextureType::NONE);
     Size getBestTextureDimension(int w, int h, int count);
     uint getSpriteIndex(int w, int h, int l, int x, int y, int z, int a);
     uint getTextureIndex(int l, int x, int y, int z);

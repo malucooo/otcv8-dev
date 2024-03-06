@@ -144,6 +144,12 @@ set(framework_SOURCES ${framework_SOURCES}
     ${CMAKE_CURRENT_LIST_DIR}/platform/unixplatform.cpp
     ${CMAKE_CURRENT_LIST_DIR}/platform/platform.cpp
     ${CMAKE_CURRENT_LIST_DIR}/platform/platform.h
+
+    # protobuf
+    ${CMAKE_CURRENT_LIST_DIR}/protobuf/appearances.pb.cc
+    ${CMAKE_CURRENT_LIST_DIR}/protobuf/appearances.pb.h
+    ${CMAKE_CURRENT_LIST_DIR}/protobuf/shared.pb.cc
+    ${CMAKE_CURRENT_LIST_DIR}/protobuf/shared.pb.h
 )
 
 set_source_files_properties(${CMAKE_CURRENT_LIST_DIR}/luafunctions.cpp
@@ -241,6 +247,9 @@ if(NOT WASM)
     find_package(LibZip REQUIRED)
     find_package(ZLIB REQUIRED)
     find_package(BZip2 REQUIRED)
+    find_package(Protobuf REQUIRED)
+    find_package(LibLZMA REQUIRED)
+    find_package(nlohmann_json REQUIRED)
 
     #find lua
     if(LUAJIT)
@@ -259,6 +268,9 @@ if(NOT WASM)
     find_package(PhysFS REQUIRED)
     find_package(OpenSSL REQUIRED)
     find_package(ZLIB REQUIRED)
+    find_package(Protobuf REQUIRED)
+    find_package(LibLZMA REQUIRED)
+    find_package(nlohmann_json REQUIRED)
 
     set(framework_LIBRARIES ${framework_LIBRARIES}
         ${Boost_LIBRARIES}
@@ -267,8 +279,10 @@ if(NOT WASM)
         ${OPENSSL_LIBRARIES}
         ${ZLIB_LIBRARY}
         ${LIBZIP_LIBRARY}
-	${ZLIB_LIBRARY}
-	${BZIP2_LIBRARIES}
+        ${PROTOBUF_LIBRARY}
+        ${LIBLZMA_LIBRARIES}
+        ${NLOHMANN_JSON_LIBRARY}
+	    ${BZIP2_LIBRARIES}
     )
 
     if(WIN32)
@@ -283,9 +297,12 @@ if(NOT WASM)
         ${framework_INCLUDE_DIRS}
         ${LIBZIP_INCLUDE_DIR_ZIP}
         ${LIBZIP_INCLUDE_DIR_ZIPCONF}
-	${ZLIB_INCLUDE_DIR}
-	${BZIP2_INCLUDE_DIR}
-    )
+	    ${ZLIB_INCLUDE_DIR}
+	    ${BZIP2_INCLUDE_DIR}
+        ${PROTOBUF_INCLUDE_DIRS}
+        ${LIBLZMA_INCLUDE_DIRS}
+        ${NLOHMANN_JSON_INCLUDE_DIR}
+)
 endif()
 
 
