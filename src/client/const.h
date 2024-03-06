@@ -271,7 +271,7 @@ namespace Otc
         NpcIconTradeQuest
     };
 
-    enum PlayerStates {
+    enum PlayerIcons {
         IconNone = 0,
         IconPoison = 1,
         IconBurn = 2,
@@ -349,6 +349,13 @@ namespace Otc
         MessageNpcFromStartBlock       = 51,
         LastMessage                    = 52,
         MessageInvalid                 = 255
+    };
+
+    enum CreatureIcon_t {
+        CREATUREICON_NONE = 0,
+        CREATUREICON_HIGHERRECEIVEDDAMAGE = 1,
+        CREATUREICON_LOWERDEALTDAMAGE = 2,
+        CREATUREICON_TURNEDMELEE = 3,
     };
 
     enum GameFeature {

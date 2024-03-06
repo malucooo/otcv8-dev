@@ -60,7 +60,7 @@ Creature::Creature() : Thing()
     m_skull = Otc::SkullNone;
     m_shield = Otc::ShieldNone;
     m_emblem = Otc::EmblemNone;
-    m_type = Proto::CreatureTypeUnknown;
+    m_type = Proto::CREATURE_TYPE_UNKNOW;
     m_icon = Otc::NpcIconNone;
     m_lastStepDirection = Otc::InvalidDirection;
     m_footLastStep = 0;
@@ -293,7 +293,7 @@ void Creature::drawInformation(const Point& point, bool useGray, const Rect& par
         Rect emblemRect = Rect(backgroundRect.x() + 13.5 + 12, backgroundRect.y() + 16, m_emblemTexture->getSize());
         g_drawQueue->addTexturedRect(emblemRect, m_emblemTexture, Rect(0, 0, m_emblemTexture->getSize()));
     }
-    if (m_type != Proto::CreatureTypeUnknown && m_typeTexture) {
+    if (m_type != Proto::CREATURE_TYPE_UNKNOW && m_typeTexture) {
         Rect typeRect = Rect(backgroundRect.x() + 13.5 + 12 + 12, backgroundRect.y() + 16, m_typeTexture->getSize());
         g_drawQueue->addTexturedRect(typeRect, m_typeTexture, Rect(0, 0, m_typeTexture->getSize()));
     }

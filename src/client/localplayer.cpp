@@ -30,7 +30,7 @@
 
 LocalPlayer::LocalPlayer()
 {
-    m_states = 0;
+    m_icons = 0;
     m_vocation = 0;
     m_blessings = Otc::BlessingNone;
     m_walkLockExpiration = 0;
@@ -429,13 +429,13 @@ void LocalPlayer::turn(Otc::Direction direction)
     callLuaField("onTurn", direction);
 }
 
-void LocalPlayer::setStates(int states)
+void LocalPlayer::setIcons(int icons)
 {
-    if(m_states != states) {
-        int oldStates = m_states;
-        m_states = states;
+    if(m_icons != icons) {
+        const int oldIcons = m_icons;
+        m_icons = icons;
 
-        callLuaField("onStatesChange", states, oldStates);
+        callLuaField("onIconsChange", icons, oldIcons);
     }
 }
 

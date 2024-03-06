@@ -48,7 +48,7 @@ public:
     }
     void turn(Otc::Direction) override;
 
-    void setStates(int states);
+    void setIcons(int icons);
     void setSkill(uint8_t skill, int level, int levelPercent);
     void setBaseSkill(uint8_t skill, int baseLevel);
     void setHealth(double health, double maxHealth);
@@ -71,7 +71,7 @@ public:
     void setSpells(const std::vector<int>& spells);
     void setBlessings(int blessings);
 
-    int getStates() { return m_states; }
+    int getIcons() { return m_icons; }
     int getSkillLevel(uint8_t skill) { return skill < m_skillsLevel.size() ? m_skillsLevel[skill] : 0; }
     int getSkillBaseLevel(uint8_t skill) { return skill < m_skillsBaseLevel.size() ? m_skillsBaseLevel[skill] : 0; }
     int getSkillLevelPercent(uint8_t skill) { return skill < m_skillsLevelPercent.size() ? m_skillsLevelPercent[skill] : 0; }
@@ -180,7 +180,7 @@ private:
     std::vector<int> m_skillsLevelPercent;
     std::vector<int> m_spells;
 
-    int m_states;
+    int m_icons;
     int m_vocation;
     int m_blessings;
 

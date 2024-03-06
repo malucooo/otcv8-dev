@@ -245,7 +245,7 @@ void ProtocolGame::parseMessage(const InputMessagePtr& msg)
                 parsePlayerSkills(msg);
                 break;
             case Proto::GameServerPlayerState:
-                parsePlayerState(msg);
+                parsePlayerIcons(msg);
                 break;
             case Proto::GameServerClearTarget:
                 parsePlayerCancelAttack(msg);
@@ -360,9 +360,6 @@ void ProtocolGame::parseMessage(const InputMessagePtr& msg)
             case Proto::GameServerEnterGame:
                 parseEnterGame(msg);
                 break;
-            case Proto::GameServerPlayerHelpers:
-                parsePlayerHelpers(msg);
-                break;
                 // PROTOCOL>=1000
             case Proto::GameServerCreatureMarks:
                 parseCreaturesMark(msg);
@@ -389,6 +386,9 @@ void ProtocolGame::parseMessage(const InputMessagePtr& msg)
                 break;
             case Proto::GameServerCoinBalance:
                 parseCoinBalance(msg);
+                break;
+            case Proto::GameServerSendShowDescription:
+                parseShowDescription(msg);
                 break;
             case Proto::GameServerRequestPurchaseData:
                 parseRequestPurchaseData(msg);
@@ -684,6 +684,12 @@ void ProtocolGame::parseRequestPurchaseData(const InputMessagePtr& msg)
     /*int productType = */msg->getU8();
 }
 
+void ProtocolGame::parseShowDescription(const InputMessagePtr& msg)
+{
+    msg->getU32(); // offerId
+    msg->getString();  // offer description
+}
+
 void ProtocolGame::parseStore(const InputMessagePtr& msg)
 {
     if (!g_game.getFeature(Otc::GameTibia12Protocol))
@@ -960,18 +966,6 @@ void ProtocolGame::parsePvpSituations(const InputMessagePtr& msg)
     uint8 openPvpSituations = msg->getU8();
 
     g_game.setOpenPvpSituations(openPvpSituations);
-}
-
-void ProtocolGame::parsePlayerHelpers(const InputMessagePtr& msg)
-{
-    uint id = msg->getU32();
-    int helpers = msg->getU16();
-
-    CreaturePtr creature = g_map.getCreatureById(id);
-    if (!creature) return;
-    g_game.processPlayerHelpers(helpers);
-    //    else
-    //        g_logger.traceError(stdext::format("could not get creature with id %d", id));
 }
 
 void ProtocolGame::parseGMActions(const InputMessagePtr& msg)

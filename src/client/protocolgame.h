@@ -155,6 +155,7 @@ private:
     void parseStoreOffers(const InputMessagePtr& msg);
     void parseCompleteStorePurchase(const InputMessagePtr& msg);
     void parseRequestPurchaseData(const InputMessagePtr& msg);
+    void parseShowDescription(const InputMessagePtr& msg);
     void parseCoinBalance(const InputMessagePtr& msg);
     void parseCoinBalanceUpdate(const InputMessagePtr& msg);
     void parseBlessings(const InputMessagePtr& msg);
@@ -162,7 +163,6 @@ private:
     void parsePvpSituations(const InputMessagePtr& msg);
     void parsePreset(const InputMessagePtr& msg);
     void parseCreatureType(const InputMessagePtr& msg);
-    void parsePlayerHelpers(const InputMessagePtr& msg);
     void parseMessage(const InputMessagePtr& msg);
     void parsePendingGame(const InputMessagePtr& msg);
     void parseEnterGame(const InputMessagePtr& msg);
@@ -223,7 +223,7 @@ private:
     void parsePlayerInfo(const InputMessagePtr& msg);
     void parsePlayerStats(const InputMessagePtr& msg);
     void parsePlayerSkills(const InputMessagePtr& msg);
-    void parsePlayerState(const InputMessagePtr& msg);
+    void parsePlayerIcons(const InputMessagePtr& msg);
     void parsePlayerCancelAttack(const InputMessagePtr& msg);
     void parsePlayerModes(const InputMessagePtr& msg);
     void parseSpellCooldown(const InputMessagePtr& msg);
@@ -247,6 +247,7 @@ private:
     void parseWalkWait(const InputMessagePtr& msg);
     void parseFloorChangeUp(const InputMessagePtr& msg);
     void parseFloorChangeDown(const InputMessagePtr& msg);
+    void parseLootContainers(const InputMessagePtr& msg);
     void parseOpenOutfitWindow(const InputMessagePtr& msg);
     void parseVipAdd(const InputMessagePtr& msg);
     void parseVipState(const InputMessagePtr& msg);
