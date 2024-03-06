@@ -133,6 +133,20 @@ public:
     bool isWrapable() { return rawGetThingType()->isWrapable(); }
     bool isUnwrapable() { return rawGetThingType()->isUnwrapable(); }
     bool isTopEffect() { return rawGetThingType()->isTopEffect(); }
+    bool hasAction() { return getThingType()->hasAction(); }
+    bool hasWearOut() { return getThingType()->hasWearOut(); }
+    bool hasClockExpire() { return getThingType()->hasClockExpire(); }
+    bool hasExpire() { return getThingType()->hasExpire(); }
+    bool hasExpireStop() { return getThingType()->hasExpireStop(); }
+    bool isPodium() { return getThingType()->isPodium(); }
+    bool isOpaque() { return getThingType()->isOpaque(); }
+    bool isSingleDimension() { return getThingType()->isSingleDimension(); }
+    bool isTall(const bool useRealSize = false) { return getThingType()->isTall(useRealSize); }
+    uint16_t getClassification() { return getThingType()->getClassification(); }
+    void canDraw(bool canDraw) { m_canDraw = canDraw; }
+    bool canDraw()  const { return m_canDraw; }
+    void destroyBuffer() { m_drawBuffer = nullptr; }
+
     MarketData getMarketData() { return rawGetThingType()->getMarketData(); }
 
     void hide() { m_hidden = true; }

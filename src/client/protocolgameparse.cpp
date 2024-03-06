@@ -3614,29 +3614,43 @@ ItemPtr ProtocolGame::getItem(const InputMessagePtr& msg, int id, bool hasDescri
         if(hasQuiverAmmoCount)
             msg->getU32(); // ammoTotal*/
             msg->getU32(); // ammoTotal
-    }
+        }
+ 
+        if (item->getClassification() != 0) {
+            msg->getU8(); // Item tier
+        }
 
-    // Impl Podium
-    // Todo: Temporary correction, the client dat does not contain information saying if the item is podium
-    if(id == 35973 || id == 35974) {
-        const uint16 lookType = msg->getU16();
-        if(lookType != 0) {
+        if (item->hasClockExpire() || item->hasExpire() || item->hasExpireStop()) {
+            msg->getU32(); // Item duration (UI)
+            msg->getU8(); // Is brand-new
+        }
+
+        if (item->hasWearOut()) {
+            msg->getU32(); // Item charge (UI)
+            msg->getU8(); // Is brand-new
+        }
+
+        // Impl Podium
+        // Todo: Temporary correction, the client dat does not contain information saying if the item is podium
+        if(id == 35973 || id == 35974) {
+            const uint16 lookType = msg->getU16();
+            if(lookType != 0) {
             msg->getU8(); // lookHead
             msg->getU8(); // lookBody
             msg->getU8(); // lookLegs
             msg->getU8(); // lookFeet
             msg->getU8(); // lookAddons
-        }
-        const uint16 lookMount = msg->getU16();
-        if(lookMount != 0) {
+            }
+            const uint16 lookMount = msg->getU16();
+            if(lookMount != 0) {
             msg->getU8(); // lookHead
             msg->getU8(); // lookBody
             msg->getU8(); // lookLegs
             msg->getU8(); // lookFeet
+            }
+            msg->getU8(); // lookDirection
+            msg->getU8(); // podiumVisible
         }
-        msg->getU8(); // lookDirection
-        msg->getU8(); // podiumVisible
-    }
 
     if (g_game.getFeature(Otc::GameItemAnimationPhase)) {
         if (item->getAnimationPhases() > 1) {
