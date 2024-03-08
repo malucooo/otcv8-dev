@@ -193,122 +193,119 @@ namespace Proto {
         GameServerStoreCompletePurchase = 254  // 1080
     };
 
-    enum ItemOpcode {
-        StaticText = 96,
-        UnknownCreature = 97,
-        OutdatedCreature = 98,
-        Creature = 99
-    };
-
-    enum GameServerOpcodes : uint8
-    };
-
-    enum ClientOpcodes : uint8
+    enum ClientOpcodes : uint8_t
     {
-        ClientEnterAccount = 0x1,
-        ClientPendingGame = 0xA,
-        ClientEnterGame = 0x0F,
-        ClientLeaveGame = 0x14,
-        ClientPing = 0x1D,
-        ClientPingBack = 0x1E,
+        ClientEnterAccount = 1,
+        ClientPendingGame = 10,
+        ClientEnterGame = 15,
+        ClientLeaveGame = 20,
+        ClientPing = 29,
+        ClientPingBack = 30,
+        ClientUseStash = 40,
 
         // all in game opcodes must be equal or greater than 50
-        ClientFirstGameOpcode = 0x32,
+        ClientFirstGameOpcode = 50,
 
         // otclient ONLY
-        ClientExtendedOpcode = 0x32,
-        ClientChangeMapAwareRange = 0x33,
+        ClientExtendedOpcode = 50,
+        ClientChangeMapAwareRange = 51,
 
         // NOTE: add any custom opcodes in this range
         // 51 - 99
 
         // original tibia ONLY
-        ClientAutoWalk = 0x64,
-        ClientWalkNorth = 0x65,
-        ClientWalkEast = 0x66,
-        ClientWalkSouth = 0x67,
-        ClientWalkWest = 0x68,
-        ClientStop = 0x69,
-        ClientWalkNorthEast = 0x6A,
-        ClientWalkSouthEast = 0x6B,
-        ClientWalkSouthWest = 0x6C,
-        ClientWalkNorthWest = 0x6D,
-        ClientTurnNorth = 0x6F,
-        ClientTurnEast = 0x70,
-        ClientTurnSouth = 0x71,
-        ClientTurnWest = 0x72,
-        ClientEquipItem = 0x77, // 910
-        ClientMove = 0x78,
-        ClientInspectNpcTrade = 0x79,
-        ClientBuyItem = 0x7A,
-        ClientSellItem = 0x7B,
-        ClientCloseNpcTrade = 0x7C,
-        ClientRequestTrade = 0x7D,
-        ClientInspectTrade = 0x7E,
-        ClientAcceptTrade = 0x7F,
-        ClientRejectTrade = 0x80,
-        ClientUseItem = 0x82,
-        ClientUseItemWith = 0x83,
-        ClientUseOnCreature = 0x84,
-        ClientRotateItem = 0x85,
-        ClientCloseContainer = 0x87,
-        ClientUpContainer = 0x88,
-        ClientEditText = 0x89,
-        ClientEditList = 0x8A,
-        ClientLook = 0x8C,
-        ClientLookCreature = 0x8D,
-        ClientTalk = 0x96,
-        ClientRequestChannels = 0x97,
-        ClientJoinChannel = 0x98,
-        ClientLeaveChannel = 0x99,
-        ClientOpenPrivateChannel = 0x9A,
-        ClientOpenRuleViolation = 0x9B,
-        ClientCloseRuleViolation = 0x9C,
-        ClientCancelRuleViolation = 0x9D,
-        ClientCloseNpcChannel = 0x9E,
-        ClientChangeFightModes = 0xA0,
-        ClientAttack = 0xA1,
-        ClientFollow = 0xA2,
-        ClientInviteToParty = 0xA3,
-        ClientJoinParty = 0xA4,
-        ClientRevokeInvitation = 0xA5,
-        ClientPassLeadership = 0xA6,
-        ClientLeaveParty = 0xA7,
-        ClientShareExperience = 0xA8,
-        ClientDisbandParty = 0xA9,
-        ClientOpenOwnChannel = 0xAA,
-        ClientInviteToOwnChannel = 0xAB,
-        ClientExcludeFromOwnChannel = 0xAC,
-        ClientCancelAttackAndFollow = 0xBE,
-        ClientUpdateTile = 0xC9,
-        ClientRefreshContainer = 0xCA,
-        ClientBrowseField = 0xCB,
-        ClientSeekInContainer = 0xCC,
-        ClientRequestOutfit = 0xD2,
-        ClientChangeOutfit = 0xD3,
-        ClientMount = 0xD4, // 870
-        ClientAddVip = 0xDC,
-        ClientRemoveVip = 0xDD,
-        ClientEditVip = 0xDE,
-        ClientBugReport = 0xE6,
-        ClientRuleViolation = 0xE7,
-        ClientDebugReport = 0xE8,
-        ClientTransferCoins = 0xEF, // 1080
-        ClientRequestQuestLog = 0xF0,
-        ClientRequestQuestLine = 0xF1,
-        ClientNewRuleViolation = 0xF2, // 910
-        ClientRequestItemInfo = 0xF3, // 910
-        ClientMarketLeave = 0xF4, // 944
-        ClientMarketBrowse = 0xF5, // 944
-        ClientMarketCreate = 0xF6, // 944
-        ClientMarketCancel = 0xF7, // 944
-        ClientMarketAccept = 0xF8, // 944
-        ClientAnswerModalDialog = 0xF9, // 960
-        ClientOpenStore = 0xFA, // 1080
-        ClientRequestStoreOffers = 0xFB, // 1080
-        ClientBuyStoreOffer = 0xFC, // 1080
-        ClientOpenTransactionHistory = 0xFD, // 1080
-        ClientRequestTransactionHistory = 0xFE  // 1080
+        ClientAutoWalk = 100,
+        ClientWalkNorth = 101,
+        ClientWalkEast = 102,
+        ClientWalkSouth = 103,
+        ClientWalkWest = 104,
+        ClientStop = 105,
+        ClientWalkNorthEast = 106,
+        ClientWalkSouthEast = 107,
+        ClientWalkSouthWest = 108,
+        ClientWalkNorthWest = 109,
+        ClientTurnNorth = 111,
+        ClientTurnEast = 112,
+        ClientTurnSouth = 113,
+        ClientTurnWest = 114,
+        ClientEquipItem = 119, // 910
+        ClientMove = 120,
+        ClientInspectNpcTrade = 121,
+        ClientBuyItem = 122,
+        ClientSellItem = 123,
+        ClientCloseNpcTrade = 124,
+        ClientRequestTrade = 125,
+        ClientInspectTrade = 126,
+        ClientAcceptTrade = 127,
+        ClientRejectTrade = 128,
+        ClientUseItem = 130,
+        ClientUseItemWith = 131,
+        ClientUseOnCreature = 132,
+        ClientRotateItem = 133,
+        ClientCloseContainer = 135,
+        ClientUpContainer = 136,
+        ClientEditText = 137,
+        ClientEditList = 138,
+        ClientOnWrapItem = 139,
+        ClientLook = 140,
+        ClientLookCreature = 141,
+        ClientTalk = 150,
+        ClientRequestChannels = 151,
+        ClientJoinChannel = 152,
+        ClientLeaveChannel = 153,
+        ClientOpenPrivateChannel = 154,
+        ClientOpenRuleViolation = 155,
+        ClientCloseRuleViolation = 156,
+        ClientCancelRuleViolation = 157,
+        ClientCloseNpcChannel = 158,
+        ClientChangeFightModes = 160,
+        ClientAttack = 161,
+        ClientFollow = 162,
+        ClientInviteToParty = 163,
+        ClientJoinParty = 164,
+        ClientRevokeInvitation = 165,
+        ClientPassLeadership = 166,
+        ClientLeaveParty = 167,
+        ClientShareExperience = 168,
+        ClientDisbandParty = 169,
+        ClientOpenOwnChannel = 170,
+        ClientInviteToOwnChannel = 171,
+        ClientExcludeFromOwnChannel = 172,
+        ClientCancelAttackAndFollow = 190,
+        ClientUpdateTile = 201,
+        ClientRefreshContainer = 202,
+        ClientBrowseField = 203,
+        ClientSeekInContainer = 204,
+        ClientRequestOutfit = 210,
+        ClientChangeOutfit = 211,
+        ClientMount = 212, // 870
+        ClientApplyImbuement = 213,
+        ClientClearImbuement = 214,
+        ClientCloseImbuingWindow = 215,
+        ClientAddVip = 220,
+        ClientRemoveVip = 221,
+        ClientEditVip = 222,
+        ClientBugReport = 230,
+        ClientRuleViolation = 231,
+        ClientDebugReport = 232,
+        ClientPreyAction = 235,
+        ClientPreyRequest = 237,
+        ClientTransferCoins = 239, // 1080
+        ClientRequestQuestLog = 240,
+        ClientRequestQuestLine = 241,
+        ClientNewRuleViolation = 242, // 910
+        ClientRequestItemInfo = 243, // 910
+        ClientMarketLeave = 244, // 944
+        ClientMarketBrowse = 245, // 944
+        ClientMarketCreate = 246, // 944
+        ClientMarketCancel = 247, // 944
+        ClientMarketAccept = 248, // 944
+        ClientAnswerModalDialog = 249, // 960
+        ClientOpenStore = 250, // 1080
+        ClientRequestStoreOffers = 251, // 1080
+        ClientBuyStoreOffer = 252, // 1080
+        ClientOpenTransactionHistory = 253, // 1080
+        ClientRequestTransactionHistory = 254  // 1080
     };
 
     enum CreatureType_t : uint8_t {

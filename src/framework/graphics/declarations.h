@@ -46,7 +46,7 @@ typedef stdext::shared_object_ptr<BitmapFont> BitmapFontPtr;
 typedef stdext::shared_object_ptr<CachedText> CachedTextPtr;
 typedef stdext::shared_object_ptr<FrameBuffer> FrameBufferPtr;
 typedef stdext::shared_object_ptr<Shader> ShaderPtr;
-typedef stdext::shared_object_ptr<SpriteSheet>;
+typedef stdext::shared_object_ptr<SpriteSheet> SpriteSheetPtr;
 typedef stdext::shared_object_ptr<ShaderProgram> ShaderProgramPtr;
 typedef stdext::shared_object_ptr<PainterShaderProgram> PainterShaderProgramPtr;
 typedef std::vector<ShaderPtr> ShaderList;

@@ -12,7 +12,7 @@
 
 // NOT THREAD SAFE
 
-enum StatsTypes{
+enum StatsTypes {
     STATS_FIRST = 0,
     STATS_GENERAL = STATS_FIRST,
     STATS_MAIN,
