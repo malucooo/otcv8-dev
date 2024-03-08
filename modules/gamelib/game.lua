@@ -62,6 +62,7 @@ function g_game.getSupportedClients()
       1091, 1092, 1093, 1094, 1095, 1096, 1097, 1098, 1099, 1281, 1285,
       1286, 1287, 1291
   }
+end
 
 -- The client version and protocol version where
 -- unsynchronized for some releases, not sure if this
