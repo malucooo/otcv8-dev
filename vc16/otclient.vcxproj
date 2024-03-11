@@ -103,6 +103,7 @@
   <PropertyGroup Label="Vcpkg">
     <VcpkgAutoLink>false</VcpkgAutoLink>
     <VcpkgEnabled>true</VcpkgEnabled>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <VcpkgUseStatic>true</VcpkgUseStatic>
@@ -133,7 +134,6 @@
       <ConformanceMode>true</ConformanceMode>
       <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
       <LanguageStandard>stdcpp17</LanguageStandard>
-  
       <EnableModules>false</EnableModules>
       <StringPooling>true</StringPooling>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>

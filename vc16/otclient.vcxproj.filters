@@ -387,9 +387,6 @@
     <ClCompile Include="..\src\client\game.cpp">
       <Filter>Source Files\client</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\client\protobuf\appearances.pb.cc">
-      <Filter>Source Files\client</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\client\houses.cpp">
       <Filter>Source Files\client</Filter>
     </ClCompile>
@@ -563,6 +560,15 @@
     </ClCompile>
     <ClCompile Include="..\src\framework\util\pngunpacker.cpp">
       <Filter>Source Files\framework\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\client\spriteappearances.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\framework\protobuf\appearances.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\framework\protobuf\shared.pb.cc">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1130,7 +1136,13 @@
     <ClInclude Include="..\src\framework\util\pngunpacker.h">
       <Filter>Header Files\framework\util</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\client\protobuf\appearances.pb.h">
+    <ClInclude Include="..\src\client\spriteappearances.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\framework\protobuf\appearances.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\framework\protobuf\shared.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
