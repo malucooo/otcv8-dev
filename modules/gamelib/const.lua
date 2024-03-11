@@ -56,9 +56,7 @@ Skill = {
   CriticalChance = 7,
   CriticalDamage = 8,
   LifeLeechChance = 9,
-  LifeLeechAmount = 10,
-  ManaLeechChance = 11,
-  ManaLeechAmount = 12
+  ManaLeechChance = 10
 }
 
 North = Directions.North
@@ -282,7 +280,13 @@ MessageModes = {
   RVRContinue             = 49,
   GameHighlight           = 50,
   NpcFromStartBlock       = 51,
-  Last                    = 52,
+  Attention               = 52,
+  BoostedCreature         = 53,
+  OfflineTraining         = 54,
+  Transaction             = 55,
+  Potion                  = 56,
+
+  Last                    = 57,
   Invalid                 = 255,
 }
 

@@ -62,6 +62,9 @@ public:
     uint8* getPixel(int x, int y) { return &m_pixels[(y * m_size.width() + x) * m_bpp]; }
 
     static ImagePtr fromQRCode(const std::string& code, int border);
+    void flipVertically();
+    void reverseChannels(); // argb -> bgra or bgra -> argb
+
 
 private:
     std::vector<uint8> m_pixels;

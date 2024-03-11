@@ -75,6 +75,7 @@ public:
     void addPoint(const Point& p) { addU8(p.x); addU8(p.y); }
 
     FileStreamPtr asFileStream() { return static_self_cast<FileStream>(); }
+    std::string getStrData() { return m_strData; }
 
 private:
     bool initFromGzip(const std::string& buffer);
